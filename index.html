@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/stlye.css">
+</head>
+
+<header>
+    <H1 id="title">
+        Test Your Super Hero Knowledge
+    </H1>
+    <div id="highscoreTimer">
+        <a class=aTags href = "high score link">View Highscores</a>
+        <div id="timer">Time left: </div>
+    </div>
+</header>
+<body>
+    <div id="alignCenter">
+        <button id="startButton">Start</button>
+        <div id="instructions">
+            * Click above to start the questions.<br>
+            *There are 10 total questions. <br>
+            * You will have 60 seconds to get as many correct answers as possible.<br>
+            * A timer will appear in the top right corner<br>
+            * Incorrect Answers = lose 5 seconds. <br>
+            * Correct answers = Gain 5 points.<br>
+        </div>
+    <div id="questionPopup" class="popup">
+        <h2>QUESTION:</h2>
+        <p id="questionText"></p>
+        <div id="options"></div>
+    </div>
+    </div>
+    <script src="./assets/script.js"></script>
+    
+</body>
+</html>
