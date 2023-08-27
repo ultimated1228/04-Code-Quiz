@@ -44,7 +44,7 @@ var timer; // Declare timer variable
 
 var questions = [
     {
-        question: "What year as the first Iron Man movie starring Robert Downie Jr released?",
+        question: "The first Iron Man movie starring Robert Downie Jr was released in what year?",
         answers: [2006,2005,2008,2010],
         correctAns: 2008
     },
