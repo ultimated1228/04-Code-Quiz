@@ -42,6 +42,8 @@ var currentIndex = 0; // This will keep track of the current question index
 var count = 60; // Initial timer value
 var timer; // Declare timer variable
 var score = 0;
+var streak = 0;
+
 var questions = [
     {
         question: "The first Iron Man movie starring Robert Downie Jr was released in what year?",
@@ -115,7 +117,9 @@ function displayQuestions() {
         optionButton.textContent = answer;
         optionButton.onclick = () => checkAnswer(answer);
         optionsContainer.appendChild(optionButton);
+            
     }
+
     
 };
 
@@ -125,18 +129,33 @@ function checkAnswer(selectedAnswer) {
     console.log("Correct Answer:", questions[currentIndex].correctAns);
 
     if (selectedAnswer == questions[currentIndex].correctAns) {
-        score += 5;
-        currentIndex++;
-        displayQuestions();
+        console.log(streak)
+        score += 5 + Math.ceil(streak / 5);
+        console.log(streak)
+        streak++;
+        //can I put a streak bonus here?
     } else {
-            count -= 5;//deduct 5 seconds for incorrect answer
-            currentIndex++; //go to next question
-            displayQuestions();
+        score -= 1;//deduct 2 points
+        count -= 5;//deduct 5 seconds for incorrect answer    
+        streak= 0; 
     }
-    
+    currentIndex++; //go to next question
+    if (currentIndex === questions.length) {
+        gameOver();
+    } else {
+       //!!!this streak functionality isn't working.!!! 
+        document.getElementById("streakText").style.display = "";
+        const streakText = document.getElementById("streakText");
+        streakText.innerHTML = "Current Streak: " + streak;
+        displayQuestions();
+    }
+    console.log(score);
+    console.log(Math.ceil(streak / 5));
 };
 
 document.getElementById("startButton").addEventListener("click", function() {
+    console.log(score);
+    console.log(streak);
     // Hide the start button/instructions
     document.getElementById("startButton").style.display = "none";
     document.getElementById("instructions").style.display = "none";
@@ -158,9 +177,13 @@ document.getElementById("startButton").addEventListener("click", function() {
 function gameOver () {
     // Handle score storage and initials input here
     clearInterval(timer);
+    console.log(score);
     document.getElementById("questionPopup").style.display = "none";
     document.getElementById("highScoreEntry").style.display = "flex";
     document.getElementById("returnButton").style.display = "block";
+
+    const scoreElement = document.getElementById("playerScore");
+    scoreElement.textContent = score;
 
     const submitButton = document.getElementById("submitInitials");
     submitButton.addEventListener("click", function() {
@@ -169,8 +192,14 @@ function gameOver () {
             const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
             highscores.push({ initials: playerInitials, score: score });
             localStorage.setItem("highscores", JSON.stringify(highscores));
+            
         }
         // Clear input and hide highScoreEntry after submitting
+        currentIndex = 0;
+        score = 0;
+        count = 60;
+        streak = 0;
+        console.log(score)
         document.getElementById("initials").value = "";
         document.getElementById("highScoreEntry").style.display = "none";
         document.getElementById("returnButton").style.display = "none";
@@ -193,10 +222,7 @@ function gameOver () {
     
     //     // Reset the score, and index
         
-        
-        score = 0;
-        currentIndex = 0;
-        count = 60;
+    
      
 };
 
@@ -229,6 +255,10 @@ document.getElementById("returnButton").addEventListener("click", function() {
     document.getElementById("highScoreLink").innerHTML = "View High Scores";
     document.getElementById("startButton").style.display = "";
     document.getElementById("instructions").style.display = "";
+        currentIndex = 0;
+        streak = 0;
+        score = 0;
+        count = 60;
 })
 
 // count, timer = setInterval(function() {
