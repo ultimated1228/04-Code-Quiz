@@ -13,7 +13,7 @@
         Test Your Super Hero Knowledge
     </H1>
     <div id="highscoreTimer">
-        <a class=aTags href = "high score link">View Highscores</a>
+        <a id=highScoreLink>View High Scores</a>
         <div id="timer">Time left: </div>
     </div>
 </header>
@@ -29,9 +29,29 @@
             * Correct answers = Gain 5 points.<br>
         </div>
     <div id="questionPopup" class="popup">
-        <h2>QUESTION:</h2>
+        <h2>QUESTION</h2>
         <p id="questionText"></p>
+        <h2>ANSWERS</h2><br>
         <div id="options"></div>
+    </div>
+
+    <div id="highScoreEntry">
+        <h2 id="enterInitials">Enter Your Initials to Save Your High Score</h2>
+        <p>Your Score: <span id="playerScore"></span></p>
+        <label for="initials">Enter your initials:</label>
+        <input type="text" id="initials" maxlength="3">
+        <button id="submitInitials">Submit</button>
+        <div>OR</div>
+    </div>
+    
+    <div id="viewHighScores">
+        <h2>High Score List</h2>
+        <br>
+        <div id="highScoreList">
+        </div>
+    </div>
+    <div>    
+        <button id="returnButton">Return to Quiz</button>
     </div>
     </div>
     <script src="./assets/script.js"></script>

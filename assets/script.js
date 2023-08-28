@@ -41,7 +41,7 @@
 var currentIndex = 0; // This will keep track of the current question index
 var count = 60; // Initial timer value
 var timer; // Declare timer variable
-
+var score = 0;
 var questions = [
     {
         question: "The first Iron Man movie starring Robert Downie Jr was released in what year?",
@@ -97,13 +97,10 @@ var questions = [
 
 
 function displayQuestions() {
-    if (currentIndex = questions.length) {// This will stop the questions from populating once they reach their max length
+    if (currentIndex === questions.length) {// This will stop the questions from populating once they reach their max length
+        gameOver();
         return;
     }
-
-    // Show the questions
-    const questionPopup = document.getElementById("questionPopup");
-    questionPopup.style.display = "block"; 
 
     const questionText = document.getElementById("questionText");
     const optionsContainer = document.getElementById("options");
@@ -123,30 +120,116 @@ function displayQuestions() {
 };
 
 function checkAnswer(selectedAnswer) {
-    if (selectedAnswer === questions[currentIndex].correctAns) {
+
+    console.log("Selected Answer:", selectedAnswer);
+    console.log("Correct Answer:", questions[currentIndex].correctAns);
+
+    if (selectedAnswer == questions[currentIndex].correctAns) {
+        score += 5;
         currentIndex++;
         displayQuestions();
     } else {
             count -= 5;//deduct 5 seconds for incorrect answer
             currentIndex++; //go to next question
+            displayQuestions();
     }
+    
 };
 
 document.getElementById("startButton").addEventListener("click", function() {
     // Hide the start button/instructions
-    document.getElementById("alignCenter").style.display = "none";
-    // Display first question 
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById("instructions").style.display = "none";
+    document.getElementById("highScoreLink").innerHTML = "";
+    // Show the questions
+    document.getElementById("questionPopup").style.display = "flex";
+    // start at first and cycle through the questions 
     displayQuestions();
     //start the timer
     timer = setInterval(function() {
         document.getElementById("timer").innerHTML = "Time left: " + count--;
         if(count <= 0) {
             clearInterval(timer);
-            // !!need to handle timer expiration here!!
-            //do I also need to add a reset to displayQuestions to stop the quiz here and record the score
+            gameOver();
         }
     }, 1000);
 });
+
+function gameOver () {
+    // Handle score storage and initials input here
+    clearInterval(timer);
+    document.getElementById("questionPopup").style.display = "none";
+    document.getElementById("highScoreEntry").style.display = "flex";
+    document.getElementById("returnButton").style.display = "block";
+
+    const submitButton = document.getElementById("submitInitials");
+    submitButton.addEventListener("click", function() {
+        const playerInitials = document.getElementById("initials").value;
+        if (playerInitials) {
+            const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+            highscores.push({ initials: playerInitials, score: score });
+            localStorage.setItem("highscores", JSON.stringify(highscores));
+        }
+        // Clear input and hide highScoreEntry after submitting
+        document.getElementById("initials").value = "";
+        document.getElementById("highScoreEntry").style.display = "none";
+        document.getElementById("returnButton").style.display = "none";
+        document.getElementById("startButton").style.display = "";
+        document.getElementById("instructions").style.display = "";
+        document.getElementById("highScoreLink").innerHTML = "View High Scores";
+    });
+    
+    // document.getElementById("timer").innerHTML = "Time left: "
+    
+    // setTimeout (() => {
+    //     const playerInitials = prompt("Please enter your initials to save your highscore:");
+    //         if (playerInitials) {
+    //             const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+    //             highscores.push({ initials: playerInitials, score: score });
+    //             localStorage.setItem("highscores", JSON.stringify(highscores));
+        
+    //     }
+    // }, 
+    
+    //     // Reset the score, and index
+        
+        
+        score = 0;
+        currentIndex = 0;
+        count = 60;
+     
+};
+
+
+document.getElementById("highScoreLink").addEventListener("click", function() {
+    document.getElementById("viewHighScores").style.display = "block";
+    document.getElementById("returnButton").style.display = "block";
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById("instructions").style.display = "none";
+
+    const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+    highscores.sort((a, b) => b.score - a.score);
+
+    const highscoreList = document.getElementById("highScoreList");
+    highscoreList.innerHTML = ""; 
+
+    highscores.forEach((entry, index) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${index + 1}. ${entry.initials}: ${entry.score}`;
+        highscoreList.appendChild(listItem);
+    });
+
+})
+
+document.getElementById("returnButton").addEventListener("click", function() {
+    document.getElementById("viewHighScores").style.display = "none";
+    document.getElementById("returnButton").style.display = "none";
+    document.getElementById("highScoreEntry").style.display = "none";
+    document.getElementById("highScoreLink").innerHTML = "View High Scores";
+    document.getElementById("startButton").style.display = "";
+    document.getElementById("instructions").style.display = "";
+})
 
 // count, timer = setInterval(function() {
 //     document.getElementById("timer").innerHTML = "Time left: " + count--;
