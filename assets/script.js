@@ -150,13 +150,13 @@ function checkAnswer(selectedAnswer) {
         console.log(streak)
         streak++;
         rightAppear();
-        setTimeout(rightDisappear, 2000);
+        setTimeout(rightDisappear, 1000);
     } else {
         score -= 1;//deduct 2 points
         count -= 5;//deduct 5 seconds for incorrect answer    
         streak= 0; 
         wrongAppear();
-        setTimeout(wrongDisappear, 2000);
+        setTimeout(wrongDisappear, 1000);
     }
     currentIndex++; //go to next question
     if (currentIndex === questions.length) {
