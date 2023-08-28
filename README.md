@@ -1,12 +1,8 @@
 
 
 <br />
-<div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-<h3 align="center">Code Quiz</h3>
+<h3 align="center">Super Quiz</h3>
 
   <p align="center">
     project_description
@@ -25,7 +21,7 @@
 # User Story
 
 AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+I WANT to take a timed quiz on JavaScript fundamentals that stores high scores (yes the user called for a JS quiz, but I had to go with what I enjoy on this one :)
 SO THAT I can gauge my progress compared to my peers
 
 # Acceptance Criteria
