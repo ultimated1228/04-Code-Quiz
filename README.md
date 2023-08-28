@@ -1,6 +1,5 @@
 
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
@@ -23,20 +22,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-
-
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 # User Story
+
 AS A coding boot camp student
 I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 SO THAT I can gauge my progress compared to my peers
 
 # Acceptance Criteria
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 GIVEN I am taking a code quiz
 WHEN I click the start button
@@ -49,6 +41,8 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
@@ -65,7 +59,7 @@ THEN I can save my initials and score
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-
+Feel free to use this to make your own quizzes.  To change the questions simply go into the questions array within the JS code and update the question, answer, correctAns fields with whatever questions you would like to ask.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -123,6 +123,22 @@ function displayQuestions() {
     
 };
 
+function wrongAppear() {
+    document.getElementById("wrong").style.display = "block"
+};
+
+function wrongDisappear() {
+    document.getElementById("wrong").style.display = "none"
+};
+
+function rightAppear() {
+    document.getElementById("right").style.display = "block"
+};
+
+function rightDisappear() {
+    document.getElementById("right").style.display = "none"
+};
+
 function checkAnswer(selectedAnswer) {
 
     console.log("Selected Answer:", selectedAnswer);
@@ -133,17 +149,19 @@ function checkAnswer(selectedAnswer) {
         score += 5 + Math.ceil(streak / 5);
         console.log(streak)
         streak++;
-        //can I put a streak bonus here?
+        rightAppear();
+        setTimeout(rightDisappear, 2000);
     } else {
         score -= 1;//deduct 2 points
         count -= 5;//deduct 5 seconds for incorrect answer    
         streak= 0; 
+        wrongAppear();
+        setTimeout(wrongDisappear, 2000);
     }
     currentIndex++; //go to next question
     if (currentIndex === questions.length) {
         gameOver();
-    } else {
-       //!!!this streak functionality isn't working.!!! 
+    } else { 
         document.getElementById("streakText").style.display = "";
         const streakText = document.getElementById("streakText");
         streakText.innerHTML = "Current Streak: " + streak;
@@ -152,6 +170,8 @@ function checkAnswer(selectedAnswer) {
     console.log(score);
     console.log(Math.ceil(streak / 5));
 };
+
+
 
 document.getElementById("startButton").addEventListener("click", function() {
     console.log(score);
@@ -166,7 +186,7 @@ document.getElementById("startButton").addEventListener("click", function() {
     displayQuestions();
     //start the timer
     timer = setInterval(function() {
-        document.getElementById("timer").innerHTML = "Time left: " + count--;
+        document.getElementById("timer").innerHTML = "Time left: " + --count;
         if(count <= 0) {
             clearInterval(timer);
             gameOver();
@@ -201,10 +221,8 @@ function gameOver () {
         streak = 0;
         console.log(score)
         document.getElementById("initials").value = "";
+        showHighScores();
         document.getElementById("highScoreEntry").style.display = "none";
-        document.getElementById("returnButton").style.display = "none";
-        document.getElementById("startButton").style.display = "";
-        document.getElementById("instructions").style.display = "";
         document.getElementById("highScoreLink").innerHTML = "View High Scores";
     });
     
@@ -223,11 +241,10 @@ function gameOver () {
     //     // Reset the score, and index
         
     
-     
+    
 };
 
-
-document.getElementById("highScoreLink").addEventListener("click", function() {
+function showHighScores(){   
     document.getElementById("viewHighScores").style.display = "block";
     document.getElementById("returnButton").style.display = "block";
     document.getElementById("startButton").style.display = "none";
@@ -246,7 +263,12 @@ document.getElementById("highScoreLink").addEventListener("click", function() {
         highscoreList.appendChild(listItem);
     });
 
-})
+}
+
+document.getElementById("highScoreLink").addEventListener("click", function() {
+    showHighScores();
+    })
+
 
 document.getElementById("returnButton").addEventListener("click", function() {
     document.getElementById("viewHighScores").style.display = "none";
